@@ -8,6 +8,9 @@ import helmet from "helmet";
 import morgan from "morgan";
 import path from "path";
 import { fileURLToPath } from "url";
+import authRoutes from "./routes/auth.js";
+import { register } from "./controllers/auth.js";
+import { verifyToken } from "./middleware/auth.js";
 
 //Configurations
 
@@ -36,7 +39,15 @@ const storage = multer.diskStorage({
 }); //got from multer documentation
 const upload = multer({storage: storage});
 
-//Mongosee setup
+//Routes with files
+app.post("/auth/register", upload.single('picture'), register);
+
+
+//routes
+app.use("/auth/", authRoutes);
+
+
+//Mongoose setup
 const PORT = process.env.PORT || 6001;
 mongoose.connect(process.env.MONGO_URL, {
 useNewUrlParser: true,
