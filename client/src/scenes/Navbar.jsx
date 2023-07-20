@@ -37,18 +37,23 @@ const Navbar = () => {
   const neutralLight = theme.palette.neutral;
   const dark = theme.palette.dark;
   const background = theme.palette.background.default;
-  const primaryLight = theme.palette.primary.light;
+  const primaryLight = theme.palette.primary.dark;
   const alt = theme.palette.background.alt;
-
+console.log("user info", user);
   const fullName = `${user.firstName} ${user.lastName}`;
 
   return (
     <FlexBetween padding="1rem 6%" backgroundColor={alt}>
       <FlexBetween gap="1.75rem">
+        <img
+          src={require("./logo.png")}
+          alt="Company Logo"
+          style={{ width: "50px", height: "50px" }}
+        />
         <Typography
           fontWeight="bold"
           fontSize="clamp(1rem,2rem,2.25rem)"
-          color="primary"
+          color="theme.palette.primary.main"
           onClick={() => navigate("/home")}
           sx={{
             "&:hover": {
@@ -57,7 +62,7 @@ const Navbar = () => {
             },
           }}
         >
-          SnapChat
+          threads
         </Typography>
         {/* {isNonMobileScreens && (
          <FlexBetween
@@ -135,7 +140,13 @@ const Navbar = () => {
             </IconButton>
           </Box>
           {/* menu items */}
-          <FlexBetween display="flex" flexDirection="column" justifyContent="center" alignItems="center" gap="3rem">
+          <FlexBetween
+            display="flex"
+            flexDirection="column"
+            justifyContent="center"
+            alignItems="center"
+            gap="3rem"
+          >
             <IconButton onClick={() => dispatch(setMode())}>
               {theme.palette.mode === "dark" ? (
                 <DarkMode sx={{ fontSize: "25px" }} />
@@ -180,5 +191,6 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
 
 
