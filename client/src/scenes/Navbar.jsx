@@ -39,7 +39,7 @@ const Navbar = () => {
   const background = theme.palette.background.default;
   const primaryLight = theme.palette.primary.dark;
   const alt = theme.palette.background.alt;
-console.log("user info", user);
+// console.log("user info", user);
   const fullName = `${user.firstName} ${user.lastName}`;
 
   return (
