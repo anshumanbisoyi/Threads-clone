@@ -30,17 +30,17 @@ app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 
-//File Storage Congigurations
+//File Storage Configurations
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb= (null, "public/assets");
     },
-    filename: function(req,file,cd){
+    filename: function(req,file,cb){
         cb(null, file.originalname)
     }
 }); //got from multer documentation
-const upload = multer({storage: storage});
+const upload = multer({ storage });
 
 //Routes with files
 app.post("/auth/register", upload.single('picture'), register);
