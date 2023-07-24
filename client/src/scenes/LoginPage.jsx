@@ -1,9 +1,25 @@
 import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
 import Form from "./Form";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+
 
 const LoginPage = () => {
   const theme = useTheme();
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
+  const isAuthenticated = true;
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check if the user is already logged in
+    if (isAuthenticated) {
+      // If the user is logged in, redirect to the home page or dashboard
+      navigate("/home"); // Change "/home" to the appropriate URL of your home page or dashboard
+    }
+  }, [isAuthenticated, navigate]);
+
+
   return (
     <Box>
       <Box
