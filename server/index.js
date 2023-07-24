@@ -14,9 +14,10 @@ import postRoutes from "./routes/posts.js";
 import { register } from "./controllers/auth.js";
 import { createPost } from "./controllers/posts.js";
 import { verifyToken } from "./middleware/auth.js";
+import fs from 'fs';
+
 
 //Configurations
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 dotenv.config();
@@ -25,26 +26,58 @@ app.use(express.json());
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
-app.use(cors());
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
+app.use(cors());
 app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 
-//File Storage Configurations
-
+/* FILE STORAGE */
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb= (null, "public/assets");
-    },
-    filename: function(req,file,cb){
-        cb(null, file.originalname)
-    }
-}); //got from multer documentation
-const upload = multer({ storage });
+  destination: function (req, file, cb) {
+    cb(null, "public/assets");
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
+// const upload = multer({ storage });
+
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     console.log("Received file:", file);
+//     cb(null, "public/assets");
+//   },
+//   filename: function (req, file, cb) {
+//     console.log("Received filename:", file.originalname);
+//     cb(null, file.originalname);
+//   },
+// });
+// const upload = multer({ storage });
+
+
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, "public/assets");
+//   },
+//   filename: function (req, file, cb) {
+//     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+//     cb(
+//       null,
+//       file.fieldname + "-" + uniqueSuffix + path.extname(file.originalname)
+//     );
+//   },
+// });
+
+const upload = multer({ storage: storage });
+
+
+
 
 //Routes with files
-app.post("/auth/register", upload.single('picture'), register);
-app.post("/posts", verifyToken, upload.single('picture'), createPost);
+/* ROUTES WITH FILES */
+app.post("/auth/register", upload.single("picture"), register);
+app.post("/posts", verifyToken, upload.single("picture"), createPost);
+
 
 //routes
 app.use("/auth", authRoutes);
