@@ -380,7 +380,16 @@ const Form = () => {
       "https://threads-clone-api.vercel.app/auth/register",
       {
         method: "POST",
-        body: formData,
+        body: JSON.stringify({
+          firstName: values.firstName,
+          lastName: values.lastName,
+          email: values.email,
+          password: values.password,
+          location: values.location,
+          occupation: values.occupation,
+          picture: values.picture,
+          picturePath: values.picture.name,
+        }),
       }
     );
     const savedUser = await savedUserResponse.json();
