@@ -23,7 +23,7 @@
 
 //   const patchFriend = async () => {
 //     const response = await fetch(
-//       `https://threads-clone-api.vercel.app/users/${_id}/${friendId}`,
+//       `${process.env.REACT_APP_BASE_URL}/users/${_id}/${friendId}`,
 //       {
 //         method: "PATCH",
 //         headers: {
@@ -110,7 +110,7 @@
 //   const patchFriend = async () => {
 //     try {
 //       const response = await fetch(
-//         `https://threads-clone-api.vercel.app/users/${_id}/${friendId}`,
+//         `${process.env.REACT_APP_BASE_URL}/users/${_id}/${friendId}`,
 //         {
 //           method: "PATCH",
 //           headers: {
@@ -207,7 +207,7 @@
 
 //   const patchFriend = async () => {
 //     const response = await fetch(
-//       `https://threads-clone-api.vercel.app/users/${_id}/${friendId}`,
+//       `${process.env.REACT_APP_BASE_URL}/users/${_id}/${friendId}`,
 //       {
 //         method: "PATCH",
 //         headers: {
@@ -297,7 +297,7 @@
 //   const patchFriend = async () => {
 //     try {
 //       const response = await fetch(
-//         `https://threads-clone-api.vercel.app/users/${_id}/${friendId}`,
+//         `${process.env.REACT_APP_BASE_URL}/users/${_id}/${friendId}`,
 //         {
 //           method: "PATCH",
 //           headers: {
@@ -326,7 +326,7 @@
 //       try {
 //         console.log(_id);
 //         const response = await fetch(
-//           `https://threads-clone-api.vercel.app/posts/${_id}/delete`,
+//           `${process.env.REACT_APP_BASE_URL}/posts/${_id}/delete`,
 //           {
 //             method: "DELETE",
 //             headers: {
@@ -418,8 +418,6 @@
 import React, { useState } from "react";
 import { PersonAddOutlined, PersonRemoveOutlined } from "@mui/icons-material";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setFriends } from "state";
@@ -446,7 +444,7 @@ const Friend = ({ friendId, postId, name, subtitle, userPicturePath }) => {
     // Your existing patchFriend logic here
     try {
       const response = await fetch(
-        `https://threads-clone-api.vercel.app/users/${_id}/${friendId}`,
+        `${process.env.REACT_APP_BASE_URL}/users/${_id}/${friendId}`,
         {
           method: "PATCH",
           headers: {
@@ -474,7 +472,7 @@ const Friend = ({ friendId, postId, name, subtitle, userPicturePath }) => {
 
     try {
       const response = await fetch(
-        `https://threads-clone-api.vercel.app/posts/${postId}/delete`,
+        `${process.env.REACT_APP_BASE_URL}/posts/${postId}/delete`,
         {
           method: "DELETE",
           headers: {

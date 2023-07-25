@@ -3,7 +3,7 @@
 // const UserImage = ({ image, size="60px"}) => {
 //     return (
 //         <Box width={size} height={size}>
-//             <img src={`https://threads-clone-api.vercel.app/assets/${image}`} alt="User" style={{width: size, height: size, borderRadius: "50%"}} />
+//             <img src={`${process.env.REACT_APP_BASE_URL}/assets/${image}`} alt="User" style={{width: size, height: size, borderRadius: "50%"}} />
 //         </Box>
 //     )
 // } 
@@ -20,7 +20,7 @@ const UserImage = ({ image, size = "60px" }) => {
         width={size}
         height={size}
         alt="user"
-        src={`https://threads-clone-api.vercel.app/assets/${image}`}
+        src={`${process.env.REACT_APP_BASE_URL}/assets/${image}`}
       />
     </Box>
   );

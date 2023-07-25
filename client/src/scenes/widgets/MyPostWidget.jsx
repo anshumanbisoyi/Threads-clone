@@ -46,7 +46,7 @@ const MyPostWidget = ({ picturePath }) => {
       formData.append("picturePath", image.name);
     }
 
-    const response = await fetch(`https://threads-clone-api.vercel.app/posts`, {
+    const response = await fetch(`${process.env.REACT_APP_BASE_URL}/posts`, {
       method: "POST",
       headers: { Authorization: `Bearer ${token}` },
       //   body:JSON.stringify({firstName: name, userId: _id, description: post, picture: image, picturePath: image.name})
