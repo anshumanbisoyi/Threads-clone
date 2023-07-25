@@ -444,7 +444,7 @@ const Friend = ({ friendId, postId, name, subtitle, userPicturePath }) => {
     // Your existing patchFriend logic here
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_BASE_URL}/users/${_id}/${friendId}`,
+        `${process.env.REACT_APP_BASE_URL}/api/users/${_id}/${friendId}`,
         {
           method: "PATCH",
           headers: {
@@ -472,7 +472,7 @@ const Friend = ({ friendId, postId, name, subtitle, userPicturePath }) => {
 
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_BASE_URL}/posts/${postId}/delete`,
+        `${process.env.REACT_APP_BASE_URL}/api/posts/${postId}/delete`,
         {
           method: "DELETE",
           headers: {

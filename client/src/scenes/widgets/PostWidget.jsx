@@ -45,7 +45,7 @@ const PostWidget = ({
 
     const patchLike = async () => {
       const response = await fetch(
-        `${process.env.REACT_APP_BASE_URL}/posts/${postId}/like`,
+        `${process.env.REACT_APP_BASE_URL}/api/posts/${postId}/like`,
         {
           method: "PATCH",
           headers: {
@@ -66,7 +66,7 @@ const PostWidget = ({
     try {
       console.log(selectedPostId);
       const response = await fetch(
-        `${process.env.REACT_APP_BASE_URL}/posts/${selectedPostId}/delete`,
+        `${process.env.REACT_APP_BASE_URL}/api/posts/${selectedPostId}/delete`,
         {
           method: "DELETE",
           headers: {
@@ -95,7 +95,7 @@ const PostWidget = ({
     setShowEditPopup(false);
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/posts/${postId}/edit`, {
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/posts/${postId}/edit`, {
         method: "PATCH",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -134,7 +134,7 @@ const PostWidget = ({
           height="auto"
           alt="post"
           style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
-          src={`${process.env.REACT_APP_BASE_URL}/assets/${picturePath}`}
+          src={`${process.env.REACT_APP_BASE_URL}/api/assets/${picturePath}`}
         />
       )}
       <FlexBetween mt="0.25rem">

@@ -14,7 +14,7 @@ const FriendListWidget = ({ userId }) => {
 
   const getFriends = async () => {
     const response = await fetch(
-      `${process.env.REACT_APP_BASE_URL}/users/${userId}/friends`,
+      `${process.env.REACT_APP_BASE_URL}/api/users/${userId}/friends`,
       {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
@@ -51,7 +51,7 @@ const FriendListWidget = ({ userId }) => {
     //       </Box>
     //     </WidgetWrapper>
     //   );
-    // };
+    // }; 
 
     // export default FriendListWidget;
 

@@ -377,7 +377,7 @@ const Form = () => {
     formData.append("picturePath", values.picture.name);
 
     const savedUserResponse = await fetch(
-      `${process.env.REACT_APP_BASE_URL}/auth/register`,
+      `${process.env.REACT_APP_BASE_URL}/api/auth/register`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -403,7 +403,7 @@ const Form = () => {
 
   const login = async (values, onSubmitProps) => {
     const loggedInResponse = await fetch(
-      `${process.env.REACT_APP_BASE_URL}/auth/login`,
+      `${process.env.REACT_APP_BASE_URL}/api/auth/login`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

@@ -44,13 +44,18 @@ const upload = multer({ storage: storage });
 
 //Routes with files
 /* ROUTES WITH FILES */
-app.post("/auth/register", upload.single("picture"), register);
-app.post("/posts", verifyToken, upload.single("picture"), createPost);
+app.post("/api/auth/register", upload.single("picture"), register);
+app.post("api/posts", verifyToken, upload.single("picture"), createPost);
 
 //routes
-app.use("/auth", authRoutes);
-app.use("/users", userRoutes);
-app.use("/posts", postRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/posts", postRoutes);
+
+app.use(express.static(path.join(__dirname, "build")));
+app.get("*", (req,res)=>{
+    res.sendFile(path.join(__dirname,"build","index.html"));
+} )
 
 //Mongoose setup
 const PORT = process.env.PORT || 6001;
