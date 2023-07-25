@@ -45,13 +45,14 @@ const upload = multer({ storage: storage });
 //Routes with files
 /* ROUTES WITH FILES */
 app.post("/api/auth/register", upload.single("picture"), register);
-app.post("api/posts", verifyToken, upload.single("picture"), createPost);
+app.post("/api/posts", verifyToken, upload.single("picture"), createPost);
 
 //routes
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 
+//add these lines after build to run both backened and frontend in one server
 app.use(express.static(path.join(__dirname, "build")));
 app.get("*", (req,res)=>{
     res.sendFile(path.join(__dirname,"build","index.html"));

@@ -380,17 +380,7 @@ const Form = () => {
       `${process.env.REACT_APP_BASE_URL}/api/auth/register`,
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          firstName: values.firstName,
-          lastName: values.lastName,
-          email: values.email,
-          password: values.password,
-          location: values.location,
-          occupation: values.occupation,
-          picture: values.picture,
-          picturePath: values.picture.name,
-        }),
+        body: formData,
       }
     );
     const savedUser = await savedUserResponse.json();
