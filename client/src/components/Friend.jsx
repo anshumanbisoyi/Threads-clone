@@ -23,7 +23,7 @@
 
 //   const patchFriend = async () => {
 //     const response = await fetch(
-//       `http://localhost:3001/users/${_id}/${friendId}`,
+//       `https://threads-clone-six.vercel.app/users/${_id}/${friendId}`,
 //       {
 //         method: "PATCH",
 //         headers: {
@@ -110,7 +110,7 @@
 //   const patchFriend = async () => {
 //     try {
 //       const response = await fetch(
-//         `http://localhost:3001/users/${_id}/${friendId}`,
+//         `https://threads-clone-six.vercel.app/users/${_id}/${friendId}`,
 //         {
 //           method: "PATCH",
 //           headers: {
@@ -207,7 +207,7 @@
 
 //   const patchFriend = async () => {
 //     const response = await fetch(
-//       `http://localhost:3001/users/${_id}/${friendId}`,
+//       `https://threads-clone-six.vercel.app/users/${_id}/${friendId}`,
 //       {
 //         method: "PATCH",
 //         headers: {
@@ -297,7 +297,7 @@
 //   const patchFriend = async () => {
 //     try {
 //       const response = await fetch(
-//         `http://localhost:3001/users/${_id}/${friendId}`,
+//         `https://threads-clone-six.vercel.app/users/${_id}/${friendId}`,
 //         {
 //           method: "PATCH",
 //           headers: {
@@ -326,7 +326,7 @@
 //       try {
 //         console.log(_id);
 //         const response = await fetch(
-//           `http://localhost:3001/posts/${_id}/delete`,
+//           `https://threads-clone-six.vercel.app/posts/${_id}/delete`,
 //           {
 //             method: "DELETE",
 //             headers: {
@@ -446,7 +446,7 @@ const Friend = ({ friendId, postId, name, subtitle, userPicturePath }) => {
     // Your existing patchFriend logic here
     try {
       const response = await fetch(
-        `http://localhost:3001/users/${_id}/${friendId}`,
+        `https://threads-clone-six.vercel.app/users/${_id}/${friendId}`,
         {
           method: "PATCH",
           headers: {
@@ -473,12 +473,15 @@ const Friend = ({ friendId, postId, name, subtitle, userPicturePath }) => {
     setShowConfirmation(false);
 
     try {
-      const response = await fetch(`http://localhost:3001/posts/${postId}/delete`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `https://threads-clone-six.vercel.app/posts/${postId}/delete`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to delete post.");
