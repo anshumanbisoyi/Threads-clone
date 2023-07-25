@@ -14,8 +14,7 @@ import postRoutes from "./routes/posts.js";
 import { register } from "./controllers/auth.js";
 import { createPost } from "./controllers/posts.js";
 import { verifyToken } from "./middleware/auth.js";
-import fs from 'fs';
-
+import fs from "fs";
 
 //Configurations
 const __filename = fileURLToPath(import.meta.url);
@@ -31,21 +30,6 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 
-const allowedOrigins = ["https://threads-clone-three.vercel.app"];
-
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-  })
-);
-
-
 /* FILE STORAGE */
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -58,12 +42,10 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-
 //Routes with files
 /* ROUTES WITH FILES */
 app.post("/auth/register", upload.single("picture"), register);
 app.post("/posts", verifyToken, upload.single("picture"), createPost);
-
 
 //routes
 app.use("/auth", authRoutes);
@@ -72,9 +54,12 @@ app.use("/posts", postRoutes);
 
 //Mongoose setup
 const PORT = process.env.PORT || 6001;
-mongoose.connect(process.env.MONGO_URL, {
-useNewUrlParser: true,
-useUnifiedTopology: true,
-}).then(()=>{
+mongoose
+  .connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
     app.listen(PORT, () => console.log(`Server is running on port: ${PORT}`));
-}).catch(err => console.error(`${err} did not connect`));
+  })
+  .catch((err) => console.error(`${err} did not connect`));
