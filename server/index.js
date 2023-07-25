@@ -31,6 +31,21 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 
+const allowedOrigins = ["https://threads-clone-three.vercel.app"];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+  })
+);
+
+
 /* FILE STORAGE */
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -40,37 +55,8 @@ const storage = multer.diskStorage({
     cb(null, file.originalname);
   },
 });
-// const upload = multer({ storage });
-
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     console.log("Received file:", file);
-//     cb(null, "public/assets");
-//   },
-//   filename: function (req, file, cb) {
-//     console.log("Received filename:", file.originalname);
-//     cb(null, file.originalname);
-//   },
-// });
-// const upload = multer({ storage });
-
-
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, "public/assets");
-//   },
-//   filename: function (req, file, cb) {
-//     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-//     cb(
-//       null,
-//       file.fieldname + "-" + uniqueSuffix + path.extname(file.originalname)
-//     );
-//   },
-// });
 
 const upload = multer({ storage: storage });
-
-
 
 
 //Routes with files
