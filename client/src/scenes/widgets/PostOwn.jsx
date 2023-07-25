@@ -33,7 +33,7 @@ const PostOwn = ({
 
   const patchLike = async () => {
     const response = await fetch(
-      `https://threads-clone-six.vercel.app/posts/${postId}/like`,
+      `https://threads-clone-api.vercel.app/posts/${postId}/like`,
       {
         method: "PATCH",
         headers: {
@@ -66,7 +66,7 @@ const PostOwn = ({
           height="auto"
           alt="post"
           style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
-          src={`https://threads-clone-six.vercel.app/assets/${picturePath}`}
+          src={`https://threads-clone-api.vercel.app/assets/${picturePath}`}
         />
       )} */}
       <FlexBetween mt="0.25rem">

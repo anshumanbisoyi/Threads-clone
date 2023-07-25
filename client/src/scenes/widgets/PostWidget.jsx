@@ -44,15 +44,17 @@ const PostWidget = ({
   const primary = palette.primary.main;
 
     const patchLike = async () => {
-      const response = await fetch(`threads-clone-six.vercel.app
-/posts/${postId}/like`, {
-        method: "PATCH",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ userId: loggedInUserId }),
-      });
+      const response = await fetch(
+        `https://threads-clone-api.vercel.app/posts/${postId}/like`,
+        {
+          method: "PATCH",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ userId: loggedInUserId }),
+        }
+      );
       const updatedPost = await response.json();
       dispatch(setPost({ post: updatedPost }));
     };
@@ -64,8 +66,7 @@ const PostWidget = ({
     try {
       console.log(selectedPostId);
       const response = await fetch(
-        `threads-clone-six.vercel.app
-/posts/${selectedPostId}/delete`,
+        `https://threads-clone-api.vercel.app/posts/${selectedPostId}/delete`,
         {
           method: "DELETE",
           headers: {
@@ -94,8 +95,7 @@ const PostWidget = ({
     setShowEditPopup(false);
 
     try {
-      const response = await fetch(`threads-clone-six.vercel.app
-/posts/${postId}/edit`, {
+      const response = await fetch(`https://threads-clone-api.vercel.app/posts/${postId}/edit`, {
         method: "PATCH",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -134,8 +134,7 @@ const PostWidget = ({
           height="auto"
           alt="post"
           style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
-          src={`threads-clone-six.vercel.app
-/assets/${picturePath}`}
+          src={`https://threads-clone-api.vercel.app/assets/${picturePath}`}
         />
       )}
       <FlexBetween mt="0.25rem">

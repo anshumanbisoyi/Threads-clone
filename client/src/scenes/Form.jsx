@@ -66,7 +66,7 @@
    
 
 //     const savedUserResponse = await fetch(
-//       "https://threads-clone-six.vercel.app/auth/register",
+//       "https://threads-clone-api.vercel.app/auth/register",
 //       {
 //         method: "POST",
 //         headers: { "Content-Type": "application/json" },
@@ -91,7 +91,7 @@
 //   };
 // //new login
 // const login = async (values, onSubmitProps) => {
-//   const loggedInResponse = await fetch("https://threads-clone-six.vercel.app/auth/login", {
+//   const loggedInResponse = await fetch("https://threads-clone-api.vercel.app/auth/login", {
 //     method: "POST",
 //     headers: { "Content-Type": "application/json" },
 //     body: JSON.stringify(values),
@@ -117,7 +117,7 @@
 
 // //old login
 //   // const login = async (values, onSubmitProps) => {
-//   //   const loggedInResponse = await fetch("https://threads-clone-six.vercel.app/auth/login", {
+//   //   const loggedInResponse = await fetch("https://threads-clone-api.vercel.app/auth/login", {
 //   //     method: "POST",
 //   //     headers: { "Content-Type": "application/json" },
 //   //     body: JSON.stringify(values),
@@ -377,7 +377,7 @@ const Form = () => {
     formData.append("picturePath", values.picture.name);
 
     const savedUserResponse = await fetch(
-      "threads-clone-six.vercel.app/auth/register",
+      "https://threads-clone-api.vercel.app/auth/register",
       {
         method: "POST",
         body: formData,
@@ -393,7 +393,7 @@ const Form = () => {
 
   const login = async (values, onSubmitProps) => {
     const loggedInResponse = await fetch(
-      "threads-clone-six.vercel.app/auth/login",
+      "https://threads-clone-api.vercel.app/auth/login",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
