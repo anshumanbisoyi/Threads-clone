@@ -21,11 +21,14 @@ import FlexBetween from "components/FlexBetween";
 import Dropzone from "react-dropzone";
 import UserImage from "components/UserImage";
 import WidgetWrapper from "components/WidgetWrapper";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setPosts } from "state";
+import { setPosts, setTotalPages, setPage, setHasMore } from "state";
 
 const MyPostWidget = ({ picturePath }) => {
+  const posts = useSelector((state) => state.posts);
+  const page = useSelector((state) => state.page);
+  const totalPages = useSelector((state) => state.totalPages);
   const dispatch = useDispatch();
   const [isImage, setIsImage] = useState(false);
   const [image, setImage] = useState(null);
@@ -33,9 +36,46 @@ const MyPostWidget = ({ picturePath }) => {
   const { palette } = useTheme();
   const { _id } = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
-//   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
+  //   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
   const mediumMain = palette.neutral.mediumMain;
   const medium = palette.neutral.medium;
+
+  const sliceAdapter = (data, page) => {
+    console.log("SLICING DATA");
+    const slicedData = data
+      .reverse()
+      .slice((page - 1) * 5, Math.min((page - 1) * 5 + 5, data.length));
+
+    return {
+      no_of_pages: Math.ceil(data.length / 5),
+      data: slicedData,
+      current_page: page,
+    };
+  };
+
+  const getPosts = async () => {
+    // console.log("FETCHING DATA AFTER POSTING");
+    // const response = await fetch(
+    //   `${process.env.REACT_APP_BASE_URL}/api/posts?page=${page}`,
+    //   {
+    //     method: "GET",
+    //     headers: { Authorization: `Bearer ${token}` },
+    //   }
+    // );
+    // let data = await response.json();
+    // console.log(data);
+
+    // const modifiedData = sliceAdapter(data, 1);
+    window.reload();
+    // dispatch(setPage({ page: 1 }));
+    // dispatch(setHasMore({ hasMore: true }));
+    // dispatch(setTotalPages({ totalPages: modifiedData.no_of_pages }));
+    // dispatch(setPosts({ posts: modifiedData.data }));
+  };
+
+  useEffect(() => {
+    console.log(posts);
+  }, [posts]);
 
   const handlePost = async () => {
     const formData = new FormData();
@@ -46,14 +86,18 @@ const MyPostWidget = ({ picturePath }) => {
       formData.append("picturePath", image.name);
     }
 
-    const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/posts`, {
-      method: "POST",
-      headers: { Authorization: `Bearer ${token}` },
-      //   body:JSON.stringify({firstName: name, userId: _id, description: post, picture: image, picturePath: image.name})
-      body: formData,
-    });
-    const posts = await response.json();
-    dispatch(setPosts({ posts }));
+    const response = await fetch(
+      `${process.env.REACT_APP_BASE_URL}/api/posts`,
+      {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` },
+        //   body:JSON.stringify({firstName: name, userId: _id, description: post, picture: image, picturePath: image.name})
+        body: formData,
+      }
+    );
+    // const newPosts = await response.json();
+    // const currentPost = newPosts[newPosts.length - 1];
+    window.location.reload();
     setImage(null);
     setPost("");
   };
@@ -122,7 +166,7 @@ const MyPostWidget = ({ picturePath }) => {
       <Divider sx={{ margin: "1.25rem 0" }} />
 
       <FlexBetween>
-         <FlexBetween gap="0.25rem" onClick={() => setIsImage(!isImage)}>
+        <FlexBetween gap="0.25rem" onClick={() => setIsImage(!isImage)}>
           <ImageOutlined sx={{ color: mediumMain }} />
           <Typography
             color={mediumMain}
