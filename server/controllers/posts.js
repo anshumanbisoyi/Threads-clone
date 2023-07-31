@@ -38,6 +38,31 @@ export const getFeedPosts = async (req,res) =>{
     }
 }
 
+// export const getFeedPosts = async (req, res) => {
+//   try {
+//     const page = req.query.page ? parseInt(req.query.page) : 1;
+//     const limit = 5; // Number of posts to fetch per page
+
+//     // Calculate the starting index of the posts to fetch based on the page number
+//     const startIndex = (page - 1) * limit;
+
+//     // Fetch posts from the database with pagination
+//     const posts = await Post.find()
+//       .sort({ createdAt: -1 }) // Sort posts in descending order based on creation date
+//       .skip(startIndex)
+//       .limit(limit);
+
+//     // Check if there are more posts to load on the next page
+//     const totalPosts = await Post.countDocuments();
+//     const hasMore = startIndex + limit < totalPosts;
+
+//     res.status(200).json({ posts, hasMore });
+//   } catch (err) {
+//     res.status(404).json({ message: err.message });
+//   }
+// };
+
+
 export const getUserPosts = async (req,res)=>{
         try {
           const { userId } = req.params;
@@ -47,6 +72,32 @@ export const getUserPosts = async (req,res)=>{
           res.status(404).json({ message: err.message });
         }
 };
+
+// export const getUserPosts = async (req, res) => {
+//   try {
+//     const { userId } = req.params;
+//     const page = req.query.page ? parseInt(req.query.page) : 1;
+//     const limit = 5; // Number of posts to fetch per page
+
+//     // Calculate the starting index of the posts to fetch based on the page number
+//     const startIndex = (page - 1) * limit;
+
+//     // Fetch user-specific posts from the database with pagination
+//     const posts = await Post.find({ userId })
+//       .sort({ createdAt: -1 }) // Sort posts in descending order based on creation date
+//       .skip(startIndex)
+//       .limit(limit);
+
+//     // Check if there are more posts to load on the next page
+//     const totalPosts = await Post.countDocuments({ userId });
+//     const hasMore = startIndex + limit < totalPosts;
+
+//     res.status(200).json({ posts, hasMore });
+//   } catch (err) {
+//     res.status(404).json({ message: err.message });
+//   }
+// };
+
 
 
 //update
