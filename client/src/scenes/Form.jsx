@@ -16,6 +16,7 @@ import { setLogin } from "state";
 import Dropzone from "react-dropzone";
 import FlexBetween from "components/FlexBetween";
 
+
 const registerSchema = yup.object().shape({
   firstName: yup.string().required("required"),
   lastName: yup.string().required("required"),
@@ -47,6 +48,7 @@ const initialValuesLogin = {
 };
 
 const Form = () => {
+  const [loading, setLoading] = useState(false);
   const [pageType, setPageType] = useState("login");
   const { palette } = useTheme();
   const dispatch = useDispatch();
@@ -104,6 +106,13 @@ const Form = () => {
     if (isLogin) await login(values, onSubmitProps);
     if (isRegister) await register(values, onSubmitProps);
   };
+
+  const handleButton = () =>{
+    setLoading(true);
+    setTimeout(()=>{
+      setLoading(false)
+    },2000)
+  }
 
   return (
     <Formik
@@ -182,32 +191,36 @@ const Form = () => {
                   borderRadius="5px"
                   p="1rem"
                 >
-                  <Dropzone
-                    acceptedFiles=".jpg,.jpeg,.png"
-                    multiple={false}
-                    onDrop={(acceptedFiles) =>
-                      setFieldValue("picture", acceptedFiles[0])
-                    }
-                  >
-                    {({ getRootProps, getInputProps }) => (
-                      <Box
-                        {...getRootProps()}
-                        border={`2px dashed ${palette.primary.main}`}
-                        p="1rem"
-                        sx={{ "&:hover": { cursor: "pointer" } }}
-                      >
-                        <input {...getInputProps()} />
-                        {!values.picture ? (
-                          <p>Add Picture Here</p>
-                        ) : (
-                          <FlexBetween>
-                            <Typography>{values.picture.name}</Typography>
-                            <EditOutlinedIcon />
-                          </FlexBetween>
-                        )}
-                      </Box>
-                    )}
-                  </Dropzone>
+                  {loading ? (
+                    <p>Image is uploading...</p>
+                  ) : (
+                    <Dropzone
+                      acceptedFiles=".jpg,.jpeg,.png"
+                      multiple={false}
+                      onDrop={(acceptedFiles) =>
+                        setFieldValue("picture", acceptedFiles[0])
+                      }
+                    >
+                      {({ getRootProps, getInputProps }) => (
+                        <Box
+                          {...getRootProps()}
+                          border={`2px dashed ${palette.primary.main}`}
+                          p="1rem"
+                          sx={{ "&:hover": { cursor: "pointer" } }}
+                        >
+                          <input {...getInputProps()} />
+                          {!values.picture ? (
+                            <p>Add Picture Here</p>
+                          ) : (
+                            <FlexBetween>
+                              <Typography>{values.picture.name}</Typography>
+                              <EditOutlinedIcon />
+                            </FlexBetween>
+                          )}
+                        </Box>
+                      )}
+                    </Dropzone>
+                  )}
                 </Box>
               </>
             )}
@@ -239,6 +252,7 @@ const Form = () => {
           <Box>
             <Button
               fullWidth
+              onClick={handleButton}
               type="submit"
               sx={{
                 m: "2rem 0",
